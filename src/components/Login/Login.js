@@ -13,11 +13,11 @@ export default {
   },
   methods: {
     login() {
-      let usrname = this.username.trim();
+      let username = this.username.trim();
       // 用户名 校验函数 可以放在配置文件中
       if (username !== '') {
-        this.$router.push('/chat');
-        // login(this, username)
+        // this.$router.push('/chat');
+        login(this, username)
       } else {
         this.$vux.alert.show({
           title: '用户名不能为空'
