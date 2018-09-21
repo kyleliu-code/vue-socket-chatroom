@@ -26,14 +26,17 @@ function getSessionId(socket) {
 
 function messageHandler(socketio) {
   socketio.on('connection', (socket) => { // socketio 连接监听
+    console.log(`${socket.id}--- connection`)
 
-    socketio.on('login', data => { // 有人登陆进来的时候监听
-      let sessionid = getSessionId(socket);
+    socket.on('login', data => { // 有人登陆进来的时候监听
+
+      console.log('login')
+      let sessionId = getSessionId(socket);
 
       let time = data.time;
       if (sessionId) {
-        users.setUserSocket(sessionid, socket);
-        let username = user.getUsername(sessionid)
+        users.setUserSocket(sessionId, socket);
+        let username = users.getUsername(sessionId)
 
         // 广播用户进入聊天室
         // 订阅广播事件
@@ -71,6 +74,7 @@ function messageHandler(socketio) {
     })
 
     socket.on('disconnect', () => {
+      // console.log('disconnect---', socket)
       let sessionId = getSessionId(socket)
       let username = users.getUsername(sessionId)
       let time = moment().format('YYYY/MM/DD/ HH:mm:ss')

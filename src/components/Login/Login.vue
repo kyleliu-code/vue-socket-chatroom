@@ -16,7 +16,5 @@
 
 </script>
 <style lang="less">
-
   @import './Login.less';
-
 </style>

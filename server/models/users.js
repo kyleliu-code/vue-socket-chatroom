@@ -47,9 +47,9 @@ function allUsers() {
 }
 
 function getUsername(sessionId) {
-  users.forEach((item) => {
+  users.forEach((item, index) => {
     if (item.sessionId === sessionId) {
-      return users[i].username;
+      return users[index].username;
     }
   });
   return '404NotFound'

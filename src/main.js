@@ -2,12 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import FastClick from 'fastclick'
-import { AlertPlugin, ConfirmPlugin } from 'vux'
+import { AlertPlugin, ConfirmPlugin} from 'vux'
 import router from './router'
 import App from './App'
 
-Vue.use(AlertPlugin)
-Vue.use(ConfirmPlugin)
+Vue.use(AlertPlugin);
+Vue.use(ConfirmPlugin);
 
 FastClick.attach(document.body)
 

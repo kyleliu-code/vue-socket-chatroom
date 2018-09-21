@@ -1,12 +1,32 @@
 <template>
   <div id="app">
     <router-view/>
+    <loading
+      :show="isLoading"
+      :text='text'
+    > </loading>
   </div>
 </template>
 
 <script>
+import store from './store'
+import {Loading } from 'vux'
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      text: 'Loading'
+    }
+  },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
+    }
+  },
+  store,
+  components: {
+    Loading 
+  }
 }
 </script>
 

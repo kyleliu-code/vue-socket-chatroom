@@ -63,3 +63,7 @@ MongoError: failed to connect to server [localhost:27017] on first connect [Mong
 我这边 win10 环境下，新安装了 mongo ，但是不知道为什么 mongo service 不能开启，在安装的时候也遇到权限问题不能启动服务
 
 解决办法： 在mongo 安装目录下 bin 文件夹中 执行 mongod.exe 文件。 重新 `npm run server` 就 ok 了
+
+### Uncaught TypeError: Cannot read property 'getters' of undefined
+
+这个原因一般是 store 没有在 组件中注册

@@ -3,8 +3,8 @@ import {
   XInput,
   XButton,
   Cell
-} from 'vux'
-import { login } from '@/api/api.js'
+} from 'vux';
+import { login } from '@/api/api.js';
 export default {
   data() {
     return {

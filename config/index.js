@@ -3,10 +3,8 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-console.log('hello')
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -14,6 +12,12 @@ module.exports = {
       '/api/*': {
         target: 'http://localhost:3001',
         // changeOrigin: true,
+        secure: false
+      },
+      '/socket.io': { // 这里不知道为什么没生效
+        target: 'http://localhost:3001',
+        // changeOrigin: true,
+        ws: true,
         secure: false
       }
     },
@@ -25,8 +29,6 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-
-    
     /**
      * Source Maps
      */
