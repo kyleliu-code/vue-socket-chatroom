@@ -34,7 +34,8 @@ export default {
     ...mapActions([
       'getUser',
       'addRecord',
-      'getRecords'
+      'getRecords',
+      'getOthers'
     ]),
     logout() { //退出登陆
       console.log('logout')
@@ -56,7 +57,6 @@ export default {
           // socket.emit('private', {})
 
         } else { // 群聊
-          console.log('群聊')
           socket.emit('broadcast', { // 发送消息
             msg: this.message,
             time
@@ -150,7 +150,7 @@ export default {
     // 监听私聊信息
 
     // 聊天室成员
-    // this.getOthers();
+    this.getOthers();
     this.getRecords();
     this.getUser();
 

@@ -50,8 +50,9 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/others', (req, res) => {
+  console.log('enter')
   let sessionId = req.session.id,
-      username = res.session.username
+      username = req.session.username;
   if (username && sessionId) {
     res.json({
       msg: 'success',
