@@ -20,15 +20,15 @@ const getters = { // 过滤器, 这里似乎并未进行过滤
 
 const actions = { // 状态异步修改
   // 得到其他人列表
-  // getOthers({commit}) {
-  //   // 异步请求， loading
-  //   commit(types.START_LOADING);
-  //   api.getOthers(data => {
-  //     commit(types.GET_OTHERS_SUCCESS, data);
-  //     // 关闭loading
-  //     commit(types.END_LOADING);
-  //   });
-  // },
+  getOthers({commit}) {
+    // 异步请求， loading
+    commit(types.START_LOADING);
+    api.getOthers(data => {
+      commit(types.GET_OTHERS_SUCCESS, data);
+      // 关闭loading
+      commit(types.END_LOADING);
+    });
+  },
 
   getUser(context) {
     context.commit(types.START_LOADING);

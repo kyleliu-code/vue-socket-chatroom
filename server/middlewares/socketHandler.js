@@ -26,7 +26,6 @@ function getSessionId(socket) {
 
 function messageHandler(socketio) {
   socketio.on('connection', (socket) => { // socketio 连接监听
-    console.log(`${socket.id}--- connection`)
 
     socket.on('login', data => { // 有人登陆进来的时候监听
 
@@ -57,7 +56,7 @@ function messageHandler(socketio) {
       let username = users.getUsername(sessionId)
       let msg = data.msg
       let time = data.time
-
+      console.log(username)
       if (username) {
         socket.broadcast.emit('broadcast', {
           user: {
@@ -69,9 +68,29 @@ function messageHandler(socketio) {
         })
 
         // 存储聊天记录
-        addRecord(username, sessionid, msg, time)
+        addRecord(username, sessionId, msg, time)
       }
-    })
+    });
+
+    socket.on('private', data => {
+      let sessionId = getSessionId(socket);
+      let username = users.getUsername(sessionId);
+      let time = data.time;
+
+      if (username) {
+        let to = users.findUser(data.toSessionId);
+        if (to) {
+          to.socket.emit('private', {
+            user: {
+              sessionId,
+              username
+            },
+            msg: data.msg,
+            time
+          });
+        }
+      }
+    });
 
     socket.on('disconnect', () => {
       // console.log('disconnect---', socket)

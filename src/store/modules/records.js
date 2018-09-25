@@ -12,7 +12,7 @@ const getters = {
 };
 
 
-const mutaions = {  // mutations 唯一改变 state
+const mutations = {  // mutations 唯一改变 state
   [types.GET_RECORDS_SUCCESS](state, records) {
     if (records.length > 0) {
       state.records.splice(0) ; // 清空之前的數據
@@ -42,8 +42,8 @@ const actions = {
 
 export default {
   state: initialState,
-  getter,
-  mutaions,
+  getters,
+  mutations,
   actions
 }
 

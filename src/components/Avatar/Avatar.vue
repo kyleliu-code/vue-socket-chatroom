@@ -9,3 +9,7 @@
   export default Avadar
 
 </script>
+<style lang="less" scoped>
+@import './Avatar.less';
+</style>
+

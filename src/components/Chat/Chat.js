@@ -18,21 +18,23 @@ import moment from 'moment';
 import { logout } from '@/api/api.js';
 import GroupChat from '../GroupChat';
 import { mapActions, mapGetters } from 'vuex';
-import store from '@/store';
+// import store from '@/store';
 export default {
   data() {
     return {
       talkingTo: -1,
-      talkToPeople: [],
+      // talkToPeople: [],
       // user: {},
-      records: [],
+      // records: [],
       message: ''
     }
   },
   methods: {
 
     ...mapActions([
-      'getUser'
+      'getUser',
+      'addRecord',
+      'getRecords'
     ]),
     logout() { //退出登陆
       console.log('logout')
@@ -44,7 +46,7 @@ export default {
       });
     },
     sendMsg() {
-      if (this.message.trim() !== '') {
+      if (this.message.trim() !== '') { // 每次发送信息的时候建立 socket 连接
         const socket = window.io('/'); // 与 哪个url 建立 socket 链接
         let time = moment().format('YYYY/MM/DD HH:mm:ss');
 
@@ -54,12 +56,13 @@ export default {
           // socket.emit('private', {})
 
         } else { // 群聊
-          socket.emit('broadcast', {
+          console.log('群聊')
+          socket.emit('broadcast', { // 发送消息
             msg: this.message,
             time
           });
 
-          this.addRecord({
+          this.addRecord({ // 作消息记录， 页面展示
             username: this.user.username,
             sessionId: this.user.sessionId,
             msg: this.message,
@@ -84,12 +87,12 @@ export default {
     ...mapGetters([
       // 'people',
       // 'talkingTo',
-      // 'talkToPeople',
-      // 'records',
+      'talkToPeople',
+      'records',
       'user'
     ])
   },
-  store: store,
+  // store: store,
   mounted() {
     const socket = window.io('/'); // 创建一个 client socket 并与 目的路径的socket connection
     const that = this; // 可以用 arrow fun
@@ -106,7 +109,7 @@ export default {
       msg
     }) => {
       that.addPeople({
-        label: username, // 进来人的 名字
+        label: user.username, // 进来人的 名字
         value: user.sessionId, // 进来的是谁
         msgs: [] // 进来的人说过什么话
       });
@@ -133,6 +136,7 @@ export default {
     // socket server 广播
 
     socket.on('broadcast', data => {
+      console.log('broadcast');
       if (data.user.sessionId !== that.user.sessionId) {
         that.addRecord({
           username: data.user.name,
@@ -147,7 +151,7 @@ export default {
 
     // 聊天室成员
     // this.getOthers();
-    // this.getRecords();
+    this.getRecords();
     this.getUser();
 
   },
